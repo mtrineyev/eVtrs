@@ -18,6 +18,8 @@ class Employee(ABC):
 
     @staticmethod
     def validate_number(number):
+        if not type(number) in (int, float):
+            raise TypeError
         if number <= 0:
             raise ValueError
 
@@ -29,8 +31,7 @@ class Employee(ABC):
 class FullTimeEmployee(Employee):
     def __init__(self, name, address, salary, load_factor):
         super().__init__(name, address)
-        self.validate_number(salary)
-        self.__salary = salary
+        self.salary = salary
         self.validate_number(load_factor)
         self.__load_factor = load_factor
 
@@ -38,16 +39,16 @@ class FullTimeEmployee(Employee):
         return (
             f"FullTimeEmployee(name='{self.name}', "
             f"address='{self.address}', "
-            f"salary={self.__salary}, "
+            f"salary={self.salary}, "
             f"load_factor={self.__load_factor})"
         )
 
-    def set_salary(self, salary: float):
-        """
-        Set __salary attribute
-        :param salary: float
-        :return: None
-        """
+    @property
+    def salary(self):
+        return self.__salary
+
+    @salary.setter
+    def salary(self, salary: float):
         self.validate_number(salary)
         self.__salary = salary
 
