@@ -169,19 +169,26 @@ class PayrollManager:
         print(f"Total taxes: {self.calculate_total_taxes()}")
 
 
-# Приклад використання
-payroll_manager = PayrollManager()
+if __name__ == "__main__":
+    # Приклад використання
+    payroll_manager = PayrollManager()
 
-full_time_employee = FullTimeEmployee(
-    "John Doe", "123 Main St", 5000, 0.9)
-hourly_employee = HourlyEmployee(
-    "Jane Doe", "456 Oak St", 160, 15)
-contract_employee = ContractEmployee(
-    "Bob Smith", "789 Pine St", 12000, 12)
+    full_time_employee = FullTimeEmployee(
+        "John Doe", "123 Main St", 5000, 0.9)
+    print(full_time_employee.salary)
+    full_time_employee.salary = 10000
+    print(full_time_employee.salary)
+    print(full_time_employee.__dict__)
+    print(full_time_employee._FullTimeEmployee__load_factor)
 
-payroll_manager.add_employee(full_time_employee)
-payroll_manager.add_employee(hourly_employee)
-payroll_manager.add_employee(contract_employee)
-print(payroll_manager, "\n")
+    hourly_employee = HourlyEmployee(
+        "Jane Doe", "456 Oak St", 160, 15)
+    contract_employee = ContractEmployee(
+        "Bob Smith", "789 Pine St", 12000, 12)
 
-payroll_manager.print_payroll_report()
+    payroll_manager.add_employee(full_time_employee)
+    payroll_manager.add_employee(hourly_employee)
+    payroll_manager.add_employee(contract_employee)
+    print(payroll_manager, "\n")
+
+    payroll_manager.print_payroll_report()

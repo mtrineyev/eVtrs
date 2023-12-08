@@ -50,13 +50,14 @@ class Flat:
         )
 
 
-my_flat = Flat()
-print(my_flat)
-yvgens_flat = Flat(area=200, addresses="м. Миколаїв, пр. Свободи, 12")
+if __name__ == "__main__":
+    my_flat = Flat()
+    print(my_flat)
+    yvgens_flat = Flat(area=200, addresses="м. Миколаїв, пр. Свободи, 12")
 
-if yvgens_flat > my_flat:
-    print("Квартира Євгена більше")
-elif yvgens_flat < my_flat:
-    print("Квартира Євгена менша")
-else:
-    print("Квартири однакові")
+    if yvgens_flat > my_flat:
+        print("Квартира Євгена більше")
+    elif yvgens_flat < my_flat:
+        print("Квартира Євгена менша")
+    else:
+        print("Квартири однакові")
