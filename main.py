@@ -1,8 +1,9 @@
-from src.bank_account import BankAccount
-from src.employee import PayrollManager
-from src.figures import Rectangle, Circle
-from src.flat import Flat
+from src.flat_new import Flat, House
 
 
 if __name__ == "__main__":
-    pass
+    flat = Flat()
+    house = House()
+    print(flat)
+    print(house)
+    print(__name__)
