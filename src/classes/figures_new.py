@@ -45,8 +45,8 @@ class Figura:
         return "\n".join(
             [
                 f"Фигура: {self.name}",
-                f"Площадь фигуры: {self.square}",
-                f"Цвет фигуры: {self.color}"
+                f"Площа фігури: {self.square}",
+                f"Колір фігури: {self.color}"
             ]
         )
 
@@ -85,7 +85,7 @@ class Rectangle(Figura):
     @length.setter
     def length(self, length) -> None:
         if not isinstance(length, float) and length < 0:
-            raise ValueError("length патрэбна >= 0")
+            raise ValueError("length повинна >= 0")
         self.__length = length
 
     @property
@@ -95,7 +95,7 @@ class Rectangle(Figura):
     @width.setter
     def width(self, width) -> None:
         if not isinstance(width, float) and width < 0:
-            raise ValueError("width патрэбна >= 0")
+            raise ValueError("width повинна >= 0")
         self.__width = width
 
     def __str__(self) -> str:

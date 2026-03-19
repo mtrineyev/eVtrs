@@ -59,8 +59,8 @@ class BankAccount:
 
 
 if __name__ == "__main__":
-    account1 = BankAccount.create_account("12157", 25000)
-    account2 = BankAccount.create_account("75368", 60000)
+    account1 = BankAccount("12157", 25000)
+    account2 = BankAccount("75368", 60000)
 
     print(account1.get_account_number())
     print(account1.get_balance())

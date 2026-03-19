@@ -1,4 +1,4 @@
-from src.flat_new import Flat, House
+from src.classes.flat_new import Flat, House
 
 
 if __name__ == "__main__":
