@@ -26,5 +26,5 @@ pip install -r requirements.txt
 
 ## Виконання першого скрипта
 ```bash
-python ./src/lesson_1/example_1.py
+python ./src/essential/example_1.py
 ```

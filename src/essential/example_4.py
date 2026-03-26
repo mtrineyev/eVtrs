@@ -19,9 +19,7 @@ print("Починаємо підрахунок по клітинках (всьо
 
 for cell in range(1, 65):
     total_grains += grains_on_cell
-    # Виводимо проміжні результати лише для деяких клітинок, щоб не заспамити екран
-    if cell <= 5 or cell == 64:
-        print(f"Клітинка {cell}: на ній {grains_on_cell} зернят. Всього: {total_grains}")
+    print(f"Клітинка {cell}: на ній {grains_on_cell} зернят. Всього: {total_grains}")
     
     # Подвоюємо кількість для наступної клітинки
     grains_on_cell *= 2
