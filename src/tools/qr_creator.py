@@ -4,7 +4,7 @@ from qrcode.constants import ERROR_CORRECT_H
 from PIL import Image, ImageDraw
 
 
-def create_styled_qr(data, file_name="styled_qr.png", logo_path=None, fill_color="black", back_color="white"):
+def create_styled_qr(data, file_name=Path("styled_qr.png"), logo_path=None, fill_color="black", back_color="white"):
     try:
         # 1. Створюємо QR-код
         qr = qrcode.QRCode(
@@ -22,7 +22,7 @@ def create_styled_qr(data, file_name="styled_qr.png", logo_path=None, fill_color
         if logo_path:
             logo = Image.open(logo_path).convert("RGBA")
             
-            # Розраховуємо розміри
+            # 1. Розраховуємо розміри
             qr_width, qr_height = img.size
             # Нехай логотип займає 20% коду, а підкладка буде трохи більшою
             logo_size = int(qr_width * 0.2)
@@ -58,7 +58,7 @@ def create_styled_qr(data, file_name="styled_qr.png", logo_path=None, fill_color
 
 if __name__ == "__main__":
     link = "https://www.google.com"
-    save_path = "qr_code.png"
+    save_path = Path("output/qr_code.png")
     fill_color = "#0a9396"  # Темно-бірюзовий
     back_color = "white"
     logo_path = Path("src/assets/Google__G__logo.svg")  # Вкажіть шлях до вашого логотипу

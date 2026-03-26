@@ -2,3 +2,13 @@
 .venv
 venv
 __pycache__
+output/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+*.db
+*.bak
+*.swp
+.DS_Store
