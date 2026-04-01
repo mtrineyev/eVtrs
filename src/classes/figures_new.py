@@ -1,16 +1,19 @@
+import math
+
 class Figura:
+    """
+    ОСНОВНИЙ КЛАС (Батьківський)
+    Тут ми демонструємо ІНКАПСУЛЯЦІЮ — приховування даних (використання __)
+    та надання доступу до них через спеціальні методи (гетери та сетери).
+    """
     COLORS = ["жовтий", "блакитний"]
 
-    def __init__(
-            self,
-            name="Фігура",
-            square=0.0,
-            color="жовтий"
-    ) -> None:
-        self.name = name
-        self.square = square
-        self.color = color
+    def __init__(self, name="Фігура", square=0.0, color="жовтий") -> None:
+        self.name = name      # Викликає сетер @name.setter
+        self.square = square  # Викликає сетер @square.setter
+        self.color = color    # Викликає сетер @color.setter
 
+    # --- ІНКАПСУЛЯЦІЯ (керування доступом до даних) ---
     @property
     def name(self) -> str:
         return self.__name
@@ -27,9 +30,10 @@ class Figura:
 
     @square.setter
     def square(self, square) -> None:
-        if not isinstance(square, float) and square <= 0:
-            raise ValueError()
-        self.__square = square
+        # Перевірка: площа не може бути від'ємною
+        if not isinstance(square, (int, float)) or square < 0:
+            raise ValueError("Площа повинна бути числом >= 0")
+        self.__square = float(square)
 
     @property
     def color(self) -> str:
@@ -38,23 +42,19 @@ class Figura:
     @color.setter
     def color(self, color) -> None:
         if color not in self.COLORS:
-            raise ValueError
+            raise ValueError(f"Дозволені кольори: {self.COLORS}")
         self.__color = color
 
+    # --- ПОЛІМОРФІЗМ (однакова назва методу __str__ працює по-різному для всіх фігур) ---
     def __str__(self) -> str:
-        return "\n".join(
-            [
-                f"Фигура: {self.name}",
-                f"Площа фігури: {self.square}",
-                f"Колір фігури: {self.color}"
-            ]
-        )
+        return f"Фігура: {self.name} | Площа: {self.square:.2f} | Колір: {self.color}"
 
     @staticmethod
     def validate_figura(obj) -> None:
         if not isinstance(obj, Figura):
-            raise TypeError(f"Об'єкт '{obj}' не фігура")
+            raise TypeError(f"Об'єкт '{obj}' не є фігурою")
 
+    # Методи порівняння (поліморфізм: ми порівнюємо будь-які фігури між собою)
     def __lt__(self, other):
         self.validate_figura(other)
         return self.square < other.square
@@ -65,59 +65,67 @@ class Figura:
 
 
 class Rectangle(Figura):
-    def __init__(
-            self,
-            length=0.0,
-            width=0.0,
-            *arg,
-            **kwargs
-    ) -> None:
-        super().__init__(*arg, **kwargs)
+    """
+    НАСЛІДУВАННЯ: Прямокутник отримує всі властивості Figura, 
+    але додає свої (довжину та ширину).
+    """
+    def __init__(self, length=0.0, width=0.0, color="жовтий") -> None:
+        # super() викликає конструктор батьківського класу Figura
+        super().__init__(name="Прямокутник", color=color)
         self.length = length
         self.width = width
-        self.square = length * width
-        self.name = "Прямокутник"
-
-    @property
-    def length(self) -> float:
-        return self.__length
-
-    @length.setter
-    def length(self, length) -> None:
-        if not isinstance(length, float) and length < 0:
-            raise ValueError("length повинна >= 0")
-        self.__length = length
-
-    @property
-    def width(self) -> float:
-        return self.__width
-
-    @width.setter
-    def width(self, width) -> None:
-        if not isinstance(width, float) and width < 0:
-            raise ValueError("width повинна >= 0")
-        self.__width = width
+        # Автоматично обчислюємо площу при створенні
+        self.square = float(length * width)
 
     def __str__(self) -> str:
-        return "\n".join(
-            [
-                super().__str__(),
-                f"length: {self.length}",
-                f"width: {self.width}",
-               ]
-        )
+        # Додаємо до опису базової фігури специфічні дані прямокутника
+        return f"{super().__str__()} [L: {self.length}, W: {self.width}]"
+
+
+class Circle(Figura):
+    """
+    НАСЛІДУВАННЯ: Коло — це теж фігура.
+    Тут ми також бачимо ПОЛІМОРФІЗМ у дії: метод розрахунку площі свій, а назва класу спільна.
+    """
+    def __init__(self, radius=0.0, color="блакитний") -> None:
+        super().__init__(name="Коло", color=color)
+        self.radius = radius
+        # Формула площі кола: S = pi * r^2
+        self.square = math.pi * (radius ** 2)
+
+    def __str__(self) -> str:
+        return f"{super().__str__()} [Радіус: {self.radius}]"
 
 
 def main():
-    figura1 = Rectangle(4, 4)
-    figura2 = Rectangle(8, 2)
-    if figura1 > figura2:
-        print("Фігура1 більша")
-    elif figura1 == figura2:
-        print("Фігури рівні")
-    else:
-        print("Фігура2 більша")
+    try:
+        print("--- Налаштування Прямокутника ---")
+        l = float(input("Введіть довжину прямокутника: "))
+        w = float(input("Введіть ширину прямокутника: "))
+        rect = Rectangle(length=l, width=w, color="жовтий")
 
+        print("\n--- Налаштування Кола ---")
+        r = float(input("Введіть радіус кола: "))
+        circ = Circle(radius=r, color="блакитний")
+
+        print("--- Список створених фігур ---")
+        print(rect)
+        print(circ)
+        print("------------------------------\n")
+
+        # ПОРІВНЯННЯ (працює завдяки магічним методам у базовому класі Figura)
+        print(f"Порівнюємо {rect.name} та {circ.name}:")
+        if rect > circ:
+            print(f"Результат: {rect.name} має більшу площу.")
+        elif rect < circ:
+            print(f"Результат: {circ.name} має більшу площу.")
+        else:
+            print("Результат: Площі фігур рівні.")
+
+    except ValueError as e:
+        print(f"\nПомилка введення: Будь ласка, використовуйте лише числа з крапкою")
+        print(f"Деталі помилки: {e}")
 
 if __name__ == "__main__":
     main()
+    

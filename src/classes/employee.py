@@ -24,7 +24,7 @@ class Employee(ABC):
             raise ValueError
 
     @abstractmethod
-    def calculate_salary(self):
+    def calculate_salary(self) -> float:
         pass
 
 
@@ -179,7 +179,6 @@ if __name__ == "__main__":
     full_time_employee.salary = 10000
     print(full_time_employee.salary)
     print(full_time_employee.__dict__)
-    print(full_time_employee._FullTimeEmployee__load_factor)
 
     hourly_employee = HourlyEmployee(
         "Jane Doe", "456 Oak St", 160, 15)
