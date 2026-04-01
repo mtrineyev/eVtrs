@@ -100,25 +100,24 @@ class Circle(Figura):
 def main():
     try:
         print("--- Налаштування Прямокутника ---")
-        l = float(input("Введіть довжину прямокутника: "))
-        w = float(input("Введіть ширину прямокутника: "))
+        l = float(input("\tВведіть довжину прямокутника: "))
+        w = float(input("\tВведіть ширину прямокутника: "))
         rect = Rectangle(length=l, width=w, color="жовтий")
 
         print("\n--- Налаштування Кола ---")
-        r = float(input("Введіть радіус кола: "))
+        r = float(input("\tВведіть радіус кола: "))
         circ = Circle(radius=r, color="блакитний")
 
-        print("--- Список створених фігур ---")
-        print(rect)
-        print(circ)
-        print("------------------------------\n")
+        print("\n--- Список створених фігур ---")
+        print(f"\t{rect}")
+        print(f"\t{circ}")
 
         # ПОРІВНЯННЯ (працює завдяки магічним методам у базовому класі Figura)
-        print(f"Порівнюємо {rect.name} та {circ.name}:")
+        print(f"\n--- Порівнюємо {rect.name} та {circ.name} ---")
         if rect > circ:
-            print(f"Результат: {rect.name} має більшу площу.")
+            print(f"\tРезультат: {rect.name} має більшу площу.")
         elif rect < circ:
-            print(f"Результат: {circ.name} має більшу площу.")
+            print(f"\tРезультат: {circ.name} має більшу площу.")
         else:
             print("Результат: Площі фігур рівні.")
 
